@@ -1,0 +1,99 @@
+.aboutus {
+  padding-top: 5%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: white;
+  color: black;
+  /* margin-bottom: 2%; */
+}
+
+.col1 {
+  text-align: center;
+}
+.col1 img {
+  padding-bottom: 20px;
+  width: 300px;
+  height: 70px;
+  padding-left: 40px;
+}
+
+.contact_info nav ul li {
+  list-style-type: none;
+  padding-top: 10px;
+}
+.contact_info nav ul li a {
+  font-size: 18px;
+  text-decoration: none;
+  color: black;
+}
+.contact_info nav ul li a:hover {
+  color: #3c5252;
+}
+.col3 {
+  text-align: center;
+}
+.col3 h1 {
+  padding-bottom: 20px;
+}
+
+.col4 {
+  text-align: center;
+  padding-right: 30px;
+}
+
+.quick_links nav ul li {
+  list-style-type: none;
+  padding-top: 10px;
+}
+.quick_links nav ul li a {
+  font-size: 18px;
+  text-decoration: none;
+  color: black;
+}
+.quick_links nav ul li a:hover {
+  color: #3c5252;
+}
+
+.col4 h1 {
+  padding-bottom: 20px;
+}
+
+.links nav ul li {
+  list-style-type: none;
+  padding-top: 10px;
+}
+.links nav ul li a {
+  font-size: 18px;
+  text-decoration: none;
+  color: black;
+}
+.links nav ul li a:hover {
+  color: #3c5252;
+}
+@media only screen and (max-width: 780px) {
+  .aboutus {
+    margin-top: 10%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .col3,
+  .col4 {
+    margin-top: 15%;
+  }
+
+  .col3 h1 {
+    padding-bottom: 20px;
+    font-size: 22px;
+  }
+  .col4 h1 {
+    padding-bottom: 20px;
+    font-size: 22px;
+  }
+}
