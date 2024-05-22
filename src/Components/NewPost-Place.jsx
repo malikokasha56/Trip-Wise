@@ -23,12 +23,14 @@ function NewPostPlace() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData);
+    setErrorMessage("");
+    console.log(formData, image);
     if (
       !formData.placeName ||
       !formData.placeCity ||
       !formData.placeDescription ||
-      !formData.placeAddress
+      !formData.placeAddress ||
+      !image
     ) {
       setErrorMessage("Please fill the required fields");
       console.log("Malik okasha");
@@ -50,16 +52,13 @@ function NewPostPlace() {
       const responseData = await res.json();
       console.log(responseData);
       if (responseData.id) {
-        const hotelID = responseData.id;
+        const placeID = responseData.id;
 
-        if (!image) {
-          setErrorMessage("Please upload a picture");
-        } else {
+        for (let i = 0; i < image.length; i++) {
           const formData = new FormData();
-          formData.append("image", image);
-
+          formData.append("image", image[i]);
           try {
-            const url1 = `http://localhost:8081/hotel/uploadPlaceImage/${hotelID}`;
+            const url1 = `http://localhost:8081/place/uploadPlaceImage/${placeID}`;
 
             const res = await fetch(url1, {
               method: "POST",
@@ -72,7 +71,9 @@ function NewPostPlace() {
             const responseImage = await res.json();
             console.log(responseImage);
             if (responseImage.imageUrl) {
-              navigate("/HomePage");
+              if (i == image.length - 1) {
+                navigate("/HomePage");
+              }
             }
           } catch (error) {
             console.error("Error uploading image:", error);
@@ -108,7 +109,7 @@ function NewPostPlace() {
 
   const handleImageChange = (e) => {
     if (e.target.files.length > 0) {
-      setImage(e.target.files[0]);
+      setImage(e.target.files);
     }
   };
 
@@ -173,7 +174,12 @@ function NewPostPlace() {
           </div>
           <div className={styles.col_2}>
             <label>Image</label>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              multiple
+            />
           </div>
         </div>
         <div className={styles.formRowCenter}>

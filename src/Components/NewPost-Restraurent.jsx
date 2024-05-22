@@ -26,15 +26,17 @@ function NewPostRestraurent() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    // Ensure required fields are filled
+    setErrorMessage("");
+    console.log(formData, image);
     if (
       !formData.restaurantName ||
       !formData.restaurantCity ||
       !formData.restaurantDescription ||
-      !formData.restaurantAddress
+      !formData.restaurantAddress ||
+      !image
     ) {
       setErrorMessage("Please fill the required fields");
+      console.log("Malik okasha");
       return;
     }
     setErrorMessage("");
@@ -55,11 +57,9 @@ function NewPostRestraurent() {
       if (responseData.id) {
         const restaurantID = responseData.id;
 
-        if (!image) {
-          setErrorMessage("Please upload a picture");
-        } else {
+        for (let i = 0; i < image.length; i++) {
           const formData = new FormData();
-          formData.append("image", image);
+          formData.append("image", image[i]);
 
           try {
             const url1 = `http://localhost:8081/restaurant/uploadRestaurantImage/${restaurantID}`;
@@ -75,21 +75,22 @@ function NewPostRestraurent() {
             const responseImage = await res.json();
             console.log(responseImage);
             if (responseImage.imageUrl) {
-              navigate("/HomePage");
+              if (i === image.length - 1) {
+                navigate("/HomePage");
+              }
             }
           } catch (error) {
             console.error("Error uploading image:", error);
           }
         }
       } else {
-        setErrorMessage("Error adding restaurant");
+        setErrorMessage("Error adding hotel");
       }
     } catch (error) {
       setErrorMessage("Error in sending data to server");
       console.error("Error in API call:", error);
     }
   }
-
   useEffect(() => {
     const today = new Date();
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -112,7 +113,7 @@ function NewPostRestraurent() {
 
   const handleImageChange = (e) => {
     if (e.target.files.length > 0) {
-      setImage(e.target.files[0]);
+      setImage(e.target.files);
     }
   };
 
@@ -201,7 +202,12 @@ function NewPostRestraurent() {
           </div>
           <div className={styles.col_2}>
             <label>Image</label>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              multiple
+            />
           </div>
         </div>
       </form>

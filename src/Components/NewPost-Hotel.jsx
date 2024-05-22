@@ -26,13 +26,17 @@ function NewPostHotel() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setErrorMessage("");
+    console.log(formData, image);
     if (
       !formData.hotelName ||
       !formData.hotelCity ||
       !formData.hotelDescription ||
-      !formData.hotelAddress
+      !formData.hotelAddress ||
+      !image
     ) {
       setErrorMessage("Please fill the required fields");
+      console.log("Malik okasha");
       return;
     }
     setErrorMessage("");
@@ -53,11 +57,9 @@ function NewPostHotel() {
       if (responseData.id) {
         const hotelID = responseData.id;
 
-        if (!image) {
-          setErrorMessage("Please upload a picture");
-        } else {
+        for (let i = 0; i < image.length; i++) {
           const formData = new FormData();
-          formData.append("image", image);
+          formData.append("image", image[i]);
 
           try {
             const url1 = `http://localhost:8081/hotel/uploadHotelImage/${hotelID}`;
@@ -73,7 +75,9 @@ function NewPostHotel() {
             const responseImage = await res.json();
             console.log(responseImage);
             if (responseImage.imageUrl) {
-              navigate("/HomePage");
+              if (i === image.length - 1) {
+                navigate("/HomePage");
+              }
             }
           } catch (error) {
             console.error("Error uploading image:", error);
@@ -87,7 +91,6 @@ function NewPostHotel() {
       console.error("Error in API call:", error);
     }
   }
-
   useEffect(() => {
     const today = new Date();
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -109,7 +112,7 @@ function NewPostHotel() {
 
   const handleImageChange = (e) => {
     if (e.target.files.length > 0) {
-      setImage(e.target.files[0]);
+      setImage(e.target.files);
     }
   };
 
@@ -222,7 +225,12 @@ function NewPostHotel() {
           </div>
           <div className={styles.col_2}>
             <label>Image</label>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              multiple
+            />
           </div>
         </div>
       </form>
