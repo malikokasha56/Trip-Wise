@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./NewPost-Hotel.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Contexts/AuthContext";
+import { MutatingDots } from "react-loader-spinner";
 
 function NewPostRestraurent() {
   const { token } = useAuth();
@@ -10,6 +11,8 @@ function NewPostRestraurent() {
   const [currentDate, setCurrentDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [image, setImage] = useState(null);
+  const [spinner, setSpinner] = useState(false);
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -26,6 +29,7 @@ function NewPostRestraurent() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setSpinner(true);
     setErrorMessage("");
     console.log(formData, image);
     if (
@@ -36,7 +40,7 @@ function NewPostRestraurent() {
       !image
     ) {
       setErrorMessage("Please fill the required fields");
-      console.log("Malik okasha");
+      setSpinner(false);
       return;
     }
     setErrorMessage("");
@@ -89,6 +93,8 @@ function NewPostRestraurent() {
     } catch (error) {
       setErrorMessage("Error in sending data to server");
       console.error("Error in API call:", error);
+    } finally {
+      setSpinner(false);
     }
   }
   useEffect(() => {
@@ -212,6 +218,19 @@ function NewPostRestraurent() {
         </div>
       </form>
       {errorMessage && <p className={styles.error}>*{errorMessage}</p>}
+      {spinner && (
+        <MutatingDots
+          visible={true}
+          height="100"
+          width="100"
+          color="#4fa94d"
+          secondaryColor="#4fa94d"
+          radius="12.5"
+          ariaLabel="mutating-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      )}
       <button className={styles.submitbtn} type="submit" onClick={handleSubmit}>
         Add restaurant
       </button>

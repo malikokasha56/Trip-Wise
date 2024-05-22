@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../Contexts/AuthContext";
 import styles from "./NewPost-Place.module.css";
+import { MutatingDots } from "react-loader-spinner";
 
 function NewPostPlace() {
   const { token } = useAuth();
@@ -10,6 +11,8 @@ function NewPostPlace() {
   const [currentDate, setCurrentDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [image, setImage] = useState(null);
+  const [spinner, setSpinner] = useState(false);
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -23,6 +26,8 @@ function NewPostPlace() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setSpinner(true);
+
     setErrorMessage("");
     console.log(formData, image);
     if (
@@ -33,7 +38,7 @@ function NewPostPlace() {
       !image
     ) {
       setErrorMessage("Please fill the required fields");
-      console.log("Malik okasha");
+      setSpinner(false);
       return;
     }
     setErrorMessage("");
@@ -85,6 +90,8 @@ function NewPostPlace() {
     } catch (error) {
       setErrorMessage("Error in sending data to server");
       console.error("Error in API call:", error);
+    } finally {
+      setSpinner(false);
     }
   }
 
@@ -196,6 +203,19 @@ function NewPostPlace() {
         </div>
       </form>
       {errorMessage && <p className={styles.error}>*{errorMessage}</p>}
+      {spinner && (
+        <MutatingDots
+          visible={true}
+          height="100"
+          width="100"
+          color="#4fa94d"
+          secondaryColor="#4fa94d"
+          radius="12.5"
+          ariaLabel="mutating-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      )}
       <button className={styles.submitbtn} type="submit" onClick={handleSubmit}>
         Add place
       </button>
