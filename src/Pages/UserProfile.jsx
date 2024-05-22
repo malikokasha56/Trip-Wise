@@ -12,9 +12,9 @@ function UserProfile() {
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
-    // if (!isAuthenticated) {
-    //   navigate("/");
-    // }
+    if (!isAuthenticated) {
+      navigate("/");
+    }
     document.title = "Your profile";
   }, [isAuthenticated, navigate]);
 

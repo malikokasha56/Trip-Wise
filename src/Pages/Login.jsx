@@ -7,8 +7,8 @@ import Validate from "../Validation/Validate";
 
 function Login() {
   const { isAuthenticated, dispatch } = useAuth();
-  const [email, setEmail] = useState("hafizokasha56@gmail.com");
-  const [password, setPassword] = useState("QhP53agP");
+  const [email, setEmail] = useState("shaid@gmail.com");
+  const [password, setPassword] = useState("Malik10&");
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);

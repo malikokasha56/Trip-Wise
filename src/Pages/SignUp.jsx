@@ -14,6 +14,7 @@ function SignUp() {
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
+
   const navigate = useNavigate();
 
   async function handleSubmit(e) {

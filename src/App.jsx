@@ -13,6 +13,11 @@ import UserReviews from "./Components/UserReviews";
 import { AuthProvider } from "./Contexts/AuthContext";
 import DashBoard from "./Pages/DashBoard";
 import ProtectedRoute from "./Pages/ProtectedRoute";
+import RecentSearch from "./Pages/RecentSearch";
+import NewPost from "./Pages/NewPost";
+import NewPostPlace from "./Components/NewPost-Place";
+import NewPostRestraurent from "./Components/NewPost-Restraurent";
+import NewPostHotel from "./Components/NewPost-Hotel";
 
 function App() {
   return (
@@ -31,6 +36,16 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="RecentSearch" element={<RecentSearch />} />
+            <Route path="NewPost" element={<NewPost />}>
+              <Route index element={<Navigate replace to="NewPostHotel" />} />
+              <Route path="NewPostPlace" element={<NewPostPlace />} />
+              <Route
+                path="NewPostRestraurent"
+                element={<NewPostRestraurent />}
+              />
+              <Route path="NewPostHotel" element={<NewPostHotel />} />
+            </Route>
             <Route path="ForgetPassword" element={<ForgetPassword />} />
             <Route path="ChangePassword" element={<ChangePassword />} />
 

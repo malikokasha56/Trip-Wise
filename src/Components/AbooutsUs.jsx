@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./AbooutsUs.module.css";
+import NewPost from "../Pages/NewPost";
 
 function AbooutsUs() {
   return (
@@ -33,7 +34,7 @@ function AbooutsUs() {
                 <Link>📝 Wite A Review</Link>
               </li>
               <li>
-                <Link>➕ Add A Place</Link>
+                <Link to="/NewPost">➕ Add A Place</Link>
               </li>
               <li>
                 <Link>🏨 Hotels</Link>

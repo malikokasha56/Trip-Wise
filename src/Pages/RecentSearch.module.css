@@ -1,0 +1,258 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* font-family: "Poppins", sans-serif; */
+    /* font-family: "Mina", "Ubuntu", sans-serif; */
+    font-family: "Ubuntu", sans-serif;
+    box-sizing: border-box;
+  }
+
+
+  .buttonRow1{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5%;
+    margin-left: 15%;
+}
+.btn_1{
+    justify-content: space-around;
+    width: 10%;
+    border: 3px solid black;
+    border-radius: 22px;
+    padding: 7px;
+    align-items: center;
+    margin-left: 10%;
+}
+.btn_1 img{
+    width: 50px;
+    height: 50px;
+    /* padding-left: 5%; */
+    margin-left: 0%;
+    
+}
+.btn_1 h4{
+    font-size: 18px;
+    padding-left: 0%;
+    padding-top: 10px;
+}
+.btn_1:hover{
+    background-color: rgb(225, 229, 232);
+}
+
+
+.row_2{
+    margin-left: 3%;
+    margin-top: 4%;
+}
+.buttonRow2{
+    justify-content: space-around;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 3%;
+    margin-right: 10%;
+}
+.btn_2{
+    width: 140px;
+    height: 50px;
+    margin-left: 5%;
+    border: 3px solid black;
+    border-radius: 22px;
+    padding: 13px;
+    text-align: center;
+    
+}
+.btn_2 h3{
+    font-size: 17px;
+}
+
+.btn_2:hover{
+    background-color: rgb(225, 229, 232);
+}
+
+.row_3{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8%;
+}
+.row_3 h1{
+    font-size: 35px;
+    font-weight: bold;
+}
+.row_3 h5{
+    margin-top:1% ;
+}
+
+
+.arrows{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    margin-top: 0%;
+}
+
+.rightArrow{
+    border: 0px;
+    width: 150px;
+    height: 140px;
+    cursor: pointer;
+}
+.leftArrow{
+    border: 0px;
+    width: 150px;
+    height: 140px;
+    cursor: pointer;
+}
+
+
+.content_box{
+    width: 2800px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    margin-left: 5%;
+    margin-top: 0%;
+}
+
+.card{
+    width: 470px;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 22px;
+    border-top-left-radius: 22px;
+    box-shadow: 0px 20px 35px 0px #0000001A;
+
+}
+
+.card img{
+    border-top-right-radius: 22px;
+    border-top-left-radius: 22px;
+}
+.card h2{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 25px;
+    font-size: 24px;
+}
+.card h5{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.heart{
+    background-color: white;
+    border-radius: 70px;
+    position: relative;
+    top: -27%;
+    left: 80%;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    width: 15%;
+    padding-left: 14px;
+    padding-top: 10px;
+}
+.heart img{
+    width: 55px;
+    height: 55px;
+    
+}
+
+
+
+.row_7 img{
+    width: 100%;
+    height: 70vh;
+    margin-top: 2%;
+}
+/* .row_7{
+    text-align: center;
+}  */
+.content_2 h1{
+    font-size: 40px;
+    color: white;
+    margin-left: 38%;
+}
+.learn_more_btn{
+    margin-top: 3%;
+    margin-left: 42%;
+    color: white;
+    background-color: black;
+    width: 12%;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 22px;
+    border-width: 0.5px;
+}
+.learn_more_btn:hover{
+    background-color: white;
+    color: black;
+}
+.content_2{
+    position: relative;
+    top: -500px;
+    z-index: 3;
+}
+
+
+.row_5{
+    display: flex;
+    flex-direction: column;
+    margin-top:7%;
+    text-align: center;
+    margin-bottom:0% ;
+   
+}
+.singapore{
+    width: 100%;
+    height: 80vh;
+}
+.row_5 h1{
+    margin-top: 5%;
+    font-size: 40px;
+}
+.row_5 h5{
+    margin-top: 1%;
+    font-size: 22px;
+}
+.content{
+    position: relative;
+    top: -600px;
+    z-index: 3;
+}
+.row_6{
+    width: 2800px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    margin-left: 5%;
+    margin-top: 0%;
+}
+
+
+.col__1,
+.col__2,
+.col__3{
+    width: 470px;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 22px;
+    border-top-left-radius: 22px;
+    /* box-shadow: 0px 20px 35px 0px #0000001A; */
+    z-index: 2;
+    position: relative;
+}
+.col__1 h2,
+.col__2 h2,
+.col__3 h2{
+    position: relative;
+    z-index: 2;
+    bottom: 90%;
+    color: rgb(249, 247, 247);
+    border-radius: 10px;
+}

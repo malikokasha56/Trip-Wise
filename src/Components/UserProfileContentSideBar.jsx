@@ -15,7 +15,9 @@ function UserProfileContentSideBar() {
           <Link className={styles.customLink}>📝 Write Review</Link>
         </p>
         <p className={styles.description}>
-          <Link className={styles.customLink}>➕ Add Place</Link>
+          <Link className={styles.customLink} to="/NewPost">
+            ➕ Add Place
+          </Link>
         </p>
       </div>
     </div>
