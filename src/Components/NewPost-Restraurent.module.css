@@ -15,6 +15,11 @@
   background-color: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
+  transition: filter 0.3s ease;
+}
+
+.blur {
+  filter: blur(5px);
 }
 
 .heading {
@@ -109,4 +114,20 @@ input[type="file"] {
 
 .links:hover {
   color: rgb(45, 158, 88);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.modalContent {
+  text-align: center;
 }

@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./NewPost-Hotel.module.css";
-import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../Contexts/AuthContext";
 import { MutatingDots } from "react-loader-spinner";
+
+const initialData = {
+  hotelName: "",
+  hotelDescription: "",
+  hotelClass: "",
+  breakFastIncluded: true,
+  hotelCity: "",
+  minPrice: "",
+  maxPrice: "",
+  hotelAddress: "",
+  postedAt: new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }),
+};
 
 function NewPostHotel() {
   const { token } = useAuth();
@@ -12,19 +27,8 @@ function NewPostHotel() {
   const [errorMessage, setErrorMessage] = useState("");
   const [image, setImage] = useState(null);
   const [spinner, setSpinner] = useState(false);
-  const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    hotelName: "",
-    hotelDescription: "",
-    hotelClass: "",
-    breakFastIncluded: true,
-    hotelCity: "",
-    minPrice: null,
-    maxPrice: null,
-    hotelAddress: null,
-    postedAt: "",
-  });
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [formData, setFormData] = useState(initialData);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -61,8 +65,8 @@ function NewPostHotel() {
         const hotelID = responseData.id;
 
         for (let i = 0; i < image.length; i++) {
-          const formData = new FormData();
-          formData.append("image", image[i]);
+          const imageData = new FormData();
+          imageData.append("image", image[i]);
 
           try {
             const url1 = `http://localhost:8081/hotel/uploadHotelImage/${hotelID}`;
@@ -72,16 +76,23 @@ function NewPostHotel() {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-              body: formData,
+              body: imageData,
             });
 
             const responseImage = await res.json();
             console.log(responseImage);
             if (responseImage.imageUrl) {
               if (i === image.length - 1) {
-                navigate("/HomePage");
+                setShowModal(true); // Show modal on successful submission
+                setTimeout(() => {
+                  setShowModal(false); // Hide modal after 4 seconds
+                }, 4000);
+                setFormData(initialData);
+                setImage(""); // Clear images
+                document.getElementById("imageid").value = "";
               }
             }
+            console.log(formData.hotelAddress);
           } catch (error) {
             console.error("Error uploading image:", error);
           }
@@ -96,6 +107,7 @@ function NewPostHotel() {
       setSpinner(false);
     }
   }
+
   useEffect(() => {
     const today = new Date();
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -105,7 +117,7 @@ function NewPostHotel() {
       ...prevData,
       postedAt: formattedDate,
     }));
-  }, [navigate]);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -122,7 +134,7 @@ function NewPostHotel() {
   };
 
   return (
-    <div className={styles.outBox}>
+    <div className={`${styles.outBox} ${showModal ? styles.blur : ""}`}>
       <h2 className={styles.heading}>Where Did You Went</h2>
       <form className={styles.form_1} onSubmit={handleSubmit}>
         <div className={styles.formRow}>
@@ -221,6 +233,7 @@ function NewPostHotel() {
           <div className={styles.col_1}>
             <label>Address</label>
             <input
+              id="address"
               type="text"
               name="hotelAddress"
               placeholder="Enter address"
@@ -231,6 +244,7 @@ function NewPostHotel() {
           <div className={styles.col_2}>
             <label>Image</label>
             <input
+              id="imageid"
               type="file"
               accept="image/*"
               onChange={handleImageChange}
@@ -252,6 +266,13 @@ function NewPostHotel() {
           wrapperStyle={{}}
           wrapperClass=""
         />
+      )}
+      {showModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h2>Thank you for adding</h2>
+          </div>
+        </div>
       )}
       <button className={styles.submitbtn} type="submit" onClick={handleSubmit}>
         Add hotel

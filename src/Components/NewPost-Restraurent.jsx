@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./NewPost-Hotel.module.css";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Contexts/AuthContext";
 import { MutatingDots } from "react-loader-spinner";
 
 function NewPostRestraurent() {
   const { token } = useAuth();
-
   const [currentDate, setCurrentDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [image, setImage] = useState(null);
   const [spinner, setSpinner] = useState(false);
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
-  const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     restaurantName: "",
     restaurantDescription: "",
     restaurantClass: "",
     breakFastIncluded: true,
     restaurantCity: "",
-    minPrice: null,
-    maxPrice: null,
-    restaurantAddress: null,
+    minPrice: "",
+    maxPrice: "",
+    restaurantAddress: "",
     postedAt: "",
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -80,15 +79,22 @@ function NewPostRestraurent() {
             console.log(responseImage);
             if (responseImage.imageUrl) {
               if (i === image.length - 1) {
-                navigate("/HomePage");
+                setShowModal(true); // Show modal on successful submission
+                setTimeout(() => {
+                  setShowModal(false); // Hide modal after 3 seconds
+                }, 4000);
+                setFormData(initialFormData); // Reset form data
+                setImage(""); // Clear images
+                document.getElementById("imageid").value = "";
               }
             }
           } catch (error) {
+            setErrorMessage("Error uploading image");
             console.error("Error uploading image:", error);
           }
         }
       } else {
-        setErrorMessage("Error adding hotel");
+        setErrorMessage("Error adding restaurant");
       }
     } catch (error) {
       setErrorMessage("Error in sending data to server");
@@ -97,6 +103,7 @@ function NewPostRestraurent() {
       setSpinner(false);
     }
   }
+
   useEffect(() => {
     const today = new Date();
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -114,7 +121,6 @@ function NewPostRestraurent() {
       ...prevData,
       [name]: value,
     }));
-    console.log(formData);
   };
 
   const handleImageChange = (e) => {
@@ -124,7 +130,7 @@ function NewPostRestraurent() {
   };
 
   return (
-    <div className={styles.outBox}>
+    <div className={`${styles.outBox} ${showModal ? styles.blur : ""}`}>
       <h2 className={styles.heading}>Where Did You Went</h2>
       <form className={styles.form_1} onSubmit={handleSubmit}>
         <div className={styles.formRow}>
@@ -209,6 +215,7 @@ function NewPostRestraurent() {
           <div className={styles.col_2}>
             <label>Image</label>
             <input
+              id="imageid"
               type="file"
               accept="image/*"
               onChange={handleImageChange}
@@ -234,6 +241,13 @@ function NewPostRestraurent() {
       <button className={styles.submitbtn} type="submit" onClick={handleSubmit}>
         Add restaurant
       </button>
+      {showModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h2>Thank you for adding</h2>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
