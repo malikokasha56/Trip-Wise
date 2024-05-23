@@ -72,7 +72,8 @@ function SignUp() {
     <div className={styles.container}>
       <div className={styles.box}>
         <img className={styles.logo} src="/Logo.png" alt="TripWise Logo" />
-        <h1 className={styles.wlcm}>Welcome here!! 😃</h1>
+        <h1 className={styles.wlcm}>Join to unlock the best
+of TripWise</h1>
         <form className={styles.form} onSubmit={handleSubmit}>
           <label>First Name: </label>
           <input
@@ -143,7 +144,7 @@ function SignUp() {
           </select>
           {errorMessage && <p className={styles.errorText}>*{errorMessage}</p>}
 
-          <button className={styles.btn}>SignIn</button>
+          <button className={styles.btn}>Sign Up</button>
         </form>
         <div className={styles.section}>
           <p>Already a member? </p>

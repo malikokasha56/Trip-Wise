@@ -1,5 +1,5 @@
 .aboutus {
-  padding-top: 5%;
+  padding-top: 50px; /* Increased top padding for more space */
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 30px;
@@ -7,75 +7,66 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   background-color: white;
   color: black;
-  /* margin-bottom: 2%; */
+  text-align: center; /* Center text alignment for all columns */
 }
 
-.col1 {
-  text-align: center;
+.aboutus div {
+  margin-bottom: 20px; /* Add margin between columns for better spacing */
 }
+
 .col1 img {
   padding-bottom: 20px;
-  width: 300px;
-  height: 70px;
-  padding-left: 40px;
+  width: 150px; /* Adjusted size for better proportion */
+  height: auto;
+  padding-left: 0; /* Center align */
 }
 
-.contact_info nav ul li {
-  list-style-type: none;
-  padding-top: 10px;
-}
-.contact_info nav ul li a {
-  font-size: 18px;
-  text-decoration: none;
-  color: black;
-}
-.contact_info nav ul li a:hover {
-  color: #3c5252;
-}
-.col3 {
-  text-align: center;
-}
-.col3 h1 {
-  padding-bottom: 20px;
+.col1 p,
+.col2 p,
+.col3 p,
+.col4 p {
+  font-size: 16px; /* Adjusted font size */
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 200px; /* Limit the width of text for better readability */
 }
 
-.col4 {
-  text-align: center;
-  padding-right: 30px;
-}
-
-.quick_links nav ul li {
-  list-style-type: none;
-  padding-top: 10px;
-}
-.quick_links nav ul li a {
-  font-size: 18px;
-  text-decoration: none;
-  color: black;
-}
-.quick_links nav ul li a:hover {
-  color: #3c5252;
-}
-
+.col2 h1,
+.col3 h1,
 .col4 h1 {
-  padding-bottom: 20px;
+  font-size: 20px; /* Adjusted heading font size */
+  margin-bottom: 10px;
 }
 
-.links nav ul li {
-  list-style-type: none;
-  padding-top: 10px;
+.col2 p,
+.col3 p,
+.col4 p {
+  font-size: 16px; /* Adjusted font size for paragraphs */
+  margin-bottom: 5px;
 }
-.links nav ul li a {
-  font-size: 18px;
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+}
+
+a {
+  font-size: 16px; /* Adjusted font size for links */
   text-decoration: none;
   color: black;
 }
-.links nav ul li a:hover {
+
+a:hover {
   color: #3c5252;
 }
+
 @media only screen and (max-width: 780px) {
   .aboutus {
-    margin-top: 10%;
+    padding-top: 50px;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 30px;
@@ -88,12 +79,10 @@
     margin-top: 15%;
   }
 
-  .col3 h1 {
-    padding-bottom: 20px;
-    font-size: 22px;
-  }
+  .col2 h1,
+  .col3 h1,
   .col4 h1 {
-    padding-bottom: 20px;
     font-size: 22px;
+    margin-bottom: 10px;
   }
 }
