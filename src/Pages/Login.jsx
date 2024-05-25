@@ -33,7 +33,6 @@ function Login() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // You may need to include additional headers like authorization if required
         },
         body: JSON.stringify(data),
       });

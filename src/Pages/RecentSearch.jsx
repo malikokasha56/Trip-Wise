@@ -3,16 +3,48 @@ import styles from "./RecentSearch.module.css";
 import NavBar from "../Components/NavBar";
 import AbooutsUs from "../Components/AbooutsUs";
 import Footer from "../Components/Footer";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useAuth } from "../Contexts/AuthContext";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const ITEM_WIDTH = 300;
 const ITEM_WIDTH2 = 300;
 
 function RecentSearch() {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [scrollPosition2, setScrollPosition2] = useState(0);
   const containerRef = useRef();
   const containerRef2 = useRef();
-  const [scrollPosition2, setScrollPosition2] = useState(0);
+
+  const navigate = useNavigate();
+
+  const { isAuthenticated, token, updateUser } = useAuth();
+
+  useEffect(() => {
+    async function fetchUserData() {
+      try {
+        const res = await fetch("http://localhost:8081/profile/getProfile", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.json();
+
+        updateUser({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.username,
+          imageURL: data.imgUrl,
+        });
+      } catch (error) {
+        console.log(`Error in getting data from server`);
+      }
+    }
+
+    fetchUserData();
+  }, []);
 
   const handleScroll = (scrollamount) => {
     const newScrollPosition = scrollPosition + scrollamount;
@@ -24,6 +56,37 @@ function RecentSearch() {
     setScrollPosition2(newScrollPosition);
     containerRef2.current.scrollLeft = newScrollPosition;
   };
+
+  useEffect(() => {
+    async function fetchUserData() {
+      try {
+        const res = await fetch("http://localhost:8081/profile/getProfile", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.json();
+
+        updateUser({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.username,
+          imageURL: data.imgUrl,
+        });
+      } catch (error) {
+        console.log(`Error in getting data from server`);
+      }
+    }
+
+    if (!isAuthenticated) {
+      navigate("/");
+    } else {
+      fetchUserData();
+    }
+    document.title = "New Post";
+  }, [isAuthenticated, navigate, token, updateUser]);
 
   return (
     <div className={styles.container}>
@@ -44,7 +107,7 @@ function RecentSearch() {
       </div>
 
       <div className={styles.row_3}>
-      <h1>Traveler&apos;s Choice Best Of The Best Restaurants</h1>
+        <h1>Traveler&apos;s Choice Best Of The Best Restaurants</h1>
         <h3>Winning flavours for every appetite</h3>
       </div>
 
@@ -61,7 +124,10 @@ function RecentSearch() {
               <img src="/monal.jpg" alt="Monal, Islamabad" />
               <div className={styles.cardText}>
                 <h2>Monal, Islamabad</h2>
-                <h5>Monal is a beautiful tourist spot and is visited by many travelers.</h5>
+                <h5>
+                  Monal is a beautiful tourist spot and is visited by many
+                  travelers.
+                </h5>
               </div>
               <div className={styles.heart}>
                 <img src="/heart.png" alt="Favorite" />
@@ -71,7 +137,10 @@ function RecentSearch() {
               <img src="/chayee.jpg" alt="PC, Lahore" />
               <div className={styles.cardText}>
                 <h2>PC, Lahore</h2>
-                <h5>PC Lahore is a beautiful tourist spot and is visited by many travelers.</h5>
+                <h5>
+                  PC Lahore is a beautiful tourist spot and is visited by many
+                  travelers.
+                </h5>
               </div>
               <div className={styles.heart}>
                 <img src="/heart.png" alt="Favorite" />
@@ -81,7 +150,10 @@ function RecentSearch() {
               <img src="/download7.jpg" alt="Bali, Hunza" />
               <div className={styles.cardText}>
                 <h2>Bali, Hunza</h2>
-                <h5>Bali is a beautiful tourist spot and is visited by many travelers.</h5>
+                <h5>
+                  Bali is a beautiful tourist spot and is visited by many
+                  travelers.
+                </h5>
               </div>
               <div className={styles.heart}>
                 <img src="/heart.png" alt="Favorite" />

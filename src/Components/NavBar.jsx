@@ -51,13 +51,11 @@ function NavBar() {
         ) : (
           <>
             <Link to={"/SignUp"}>
-              {/* <img src="/user.jpg" alt="Profile" /> */}
               <button className={`${styles.login_btn} ${styles.signIn}`}>
                 Sign Up
               </button>
             </Link>
             <Link to={"/Login"}>
-              {/* <img src="/user.jpg" alt="Profile" /> */}
               <button className={`${styles.login_btn} ${styles.signIn}`}>
                 Login
               </button>

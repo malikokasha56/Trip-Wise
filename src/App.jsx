@@ -25,7 +25,7 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<DashBoard />} />
+            <Route path="/" element={<RecentSearch />} />
             <Route path="SignUp" element={<SignUp />} />
             <Route path="Login" element={<Login />} />
             <Route
