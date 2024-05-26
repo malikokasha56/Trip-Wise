@@ -23,7 +23,7 @@ function NavBar() {
               <Link to="/SignUp">Hotels</Link>
             </li>
             <li>
-              <Link to="/SignUp">Things To Do</Link>
+              <Link to="/ThingsToDo">Things To Do</Link>
             </li>
             <li>
               <Link to="/NewPost">Add A Place</Link>

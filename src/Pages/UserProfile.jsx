@@ -11,16 +11,15 @@ import { useState } from "react";
 function UserProfile() {
   const { updateUser, token, user } = useAuth();
   const { isAuthenticated } = useAuth();
-  const[data,setData]=useState([]);
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
-  const url="http://localhost:8080/hotel/getAllHotel";
+  const url = "http://localhost:8081/hotel/getAllHotel";
   useEffect(() => {
     console.log("here");
     if (!isAuthenticated) {
       navigate("/");
     }
-
-  }, [isAuthenticated, navigate,token]);
+  }, [isAuthenticated, navigate, token]);
 
   return (
     <>

@@ -1,86 +1,98 @@
 * {
-    margin: 0;
-    padding: 0;
-    font-family: "Poppins", sans-serif;
-    box-sizing: border-box;
-  }
-  
-  .container {
-    max-width: 100%;
-    overflow-x: hidden;
-    padding: 20px;
-  }
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 20px;
+}
 
 .thingsToDoContainer {
-    flex: 1;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    max-width: 800px;
-    margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center content vertically */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  min-height: 200px; /* Adjust based on your design */
 }
 
 .header {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #28a745;
-    font-weight: bold;
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #28a745;
+  font-weight: bold;
 }
 
 .thingToDo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    padding: 20px 0;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 20px 0;
+  margin-bottom: 20px;
 }
 
 .textContainer {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .title {
-    margin: 0;
-    font-size: 1.5em;
-    color: #333;
-    font-weight: bold;
+  margin: 0;
+  font-size: 1.5em;
+  color: #333;
+  font-weight: bold;
 }
 
 .description {
-    margin: 0;
-    padding: 10px 0;
-    color: #555;
+  margin: 0;
+  padding: 10px 0;
+  color: #555;
 }
 
 .deleteButton {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .deleteButton:hover {
-    background-color: #c82333;
+  background-color: #c82333;
+}
+
+.emptyMessage {
+  color: #3c47c0; /* Example color */
+  font-size: 26px; /* Example font size */
+  font-weight: bold;
+  margin: 20px 0; /* Example margin */
+  text-align: center; /* Center text within the element */
 }
 
 .addButton {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .addButton:hover {
-    background-color: #218838;
+  background-color: #218838;
 }

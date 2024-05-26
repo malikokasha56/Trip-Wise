@@ -22,7 +22,7 @@ function Login() {
     setFormSubmitted(true);
   }
   const fetchData = async () => {
-    const url = "http://localhost:8080/auth/login";
+    const url = "http://localhost:8081/auth/login";
     const data = {
       email,
       password,
