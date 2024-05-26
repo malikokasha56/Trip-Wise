@@ -18,6 +18,8 @@ import NewPost from "./Pages/NewPost";
 import NewPostPlace from "./Components/NewPost-Place";
 import NewPostRestraurent from "./Components/NewPost-Restraurent";
 import NewPostHotel from "./Components/NewPost-Hotel";
+import AddThingsToDo from "./Pages/AddThingsToDo";
+import ThingsToDo from "./Pages/ThingsToDo";
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
               }
             />
             <Route path="RecentSearch" element={<RecentSearch />} />
+            <Route path="ThingsToDo" element={<ThingsToDo />} />
+            <Route path="AddThingsToDo" element={<AddThingsToDo />} />
             <Route path="NewPost" element={<NewPost />}>
               <Route index element={<Navigate replace to="NewPostHotel" />} />
               <Route path="NewPostPlace" element={<NewPostPlace />} />
