@@ -11,15 +11,16 @@ import UserFavourite from "./Components/UserFavourite";
 import UserAddedPlaces from "./Components/UserAddedPlaces";
 import UserReviews from "./Components/UserReviews";
 import { AuthProvider } from "./Contexts/AuthContext";
-import DashBoard from "./Pages/DashBoard";
 import ProtectedRoute from "./Pages/ProtectedRoute";
 import RecentSearch from "./Pages/RecentSearch";
 import NewPost from "./Pages/NewPost";
 import NewPostPlace from "./Components/NewPost-Place";
 import NewPostRestraurent from "./Components/NewPost-Restraurent";
 import NewPostHotel from "./Components/NewPost-Hotel";
-import AddThingsToDo from "./Pages/AddThingsToDo";
 import ThingsToDo from "./Pages/ThingsToDo";
+import AddThingsToDo from "./Pages/AddThingsToDo";
+import UserHotel from "./Pages/UserHotel";
+import UserPlace from "./Pages/UserPlace";
 
 function App() {
   return (
@@ -60,6 +61,8 @@ function App() {
               <Route path="addedPlaces" element={<UserAddedPlaces />} />
               <Route path="userReviews" element={<UserReviews />} />
             </Route>
+            <Route path="UserHotel" element={<UserHotel />}></Route>
+            <Route path="UserPlace" element={<UserPlace />}></Route>
 
             <Route path="*" element={<PageNotfoumd />}></Route>
           </Routes>

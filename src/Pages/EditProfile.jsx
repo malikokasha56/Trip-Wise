@@ -35,7 +35,7 @@ function EditProfile() {
       return;
     }
 
-    const url = "http://localhost:8081/profile/uploadProfileImage";
+    const url = "http://localhost:8080/profile/uploadProfileImage";
 
     // Fetch the image data
     const formData = new FormData();

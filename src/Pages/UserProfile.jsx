@@ -7,16 +7,20 @@ import AbooutsUs from "../Components/AbooutsUs";
 import Footer from "../Components/Footer";
 import { useAuth } from "../Contexts/AuthContext";
 // import "bootstrap/dist/css/bootstrap.min.css";
-
+import { useState } from "react";
 function UserProfile() {
-  const { isAuthenticated, user } = useAuth();
+  const { updateUser, token, user } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const[data,setData]=useState([]);
   const navigate = useNavigate();
+  const url="http://localhost:8080/hotel/getAllHotel";
   useEffect(() => {
+    console.log("here");
     if (!isAuthenticated) {
       navigate("/");
     }
-    document.title = "Your profile";
-  }, [isAuthenticated, navigate]);
+
+  }, [isAuthenticated, navigate,token]);
 
   return (
     <>

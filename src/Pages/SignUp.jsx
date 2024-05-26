@@ -29,7 +29,7 @@ function SignUp() {
   useEffect(() => {
     if (formSubmitted && Object.keys(errors).length === 0) {
       const fetchData = async () => {
-        const url = "http://localhost:8081/auth/signup";
+        const url = "http://localhost:8080/auth/signup";
         const data = {
           firstname,
           lastname,
