@@ -35,7 +35,7 @@ function App() {
               path="HomePage"
               element={
                 <ProtectedRoute>
-                  <HomePage />
+                  <RecentSearch />
                 </ProtectedRoute>
               }
             />

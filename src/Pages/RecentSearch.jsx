@@ -42,9 +42,9 @@ function RecentSearch() {
         console.log(`Error in getting data from server`);
       }
     }
-
+    document.title = "Home page";
     fetchUserData();
-  }, []);
+  }, [token, updateUser]);
 
   const handleScroll = (scrollamount) => {
     const newScrollPosition = scrollPosition + scrollamount;
