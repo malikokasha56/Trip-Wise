@@ -17,7 +17,7 @@ function UserHotel(){
    
     const[hotels,setHotels]=useState([]);
     const navigate = useNavigate();
-    // const url="http://localhost:8080/hotel/getHotel/${hotelid}";
+    // const url="http://localhost:8081/hotel/getHotel/${hotelid}";
   useEffect(() => {
     console.log("here");
     if (!isAuthenticated) {
@@ -27,7 +27,7 @@ function UserHotel(){
     console.log("Fetching data with token of hotels:", token);
    const fetchHotelData=async()=>{
     try{
-        const response = await axios.get(`http://localhost:8080/hotel/getHotel/${hotelid}`, {
+        const response = await axios.get(`http://localhost:8081/hotel/getHotel/${hotelid}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

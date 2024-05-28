@@ -1,27 +1,26 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import styles from "./HotelDetails.module.css";
+import styles from "./PlaceDetails.module.css";
 import NavBar from "../Components/NavBar";
 import AbooutsUs from "../Components/AbooutsUs";
 import Footer from "../Components/Footer";
 import { useAuth } from "../Contexts/AuthContext";
 
-const HotelDetails = () => {
-  const { hotelID } = useParams();
+const PlaceDetails = () => {
+  const { placeID } = useParams();
   const { isAuthenticated, token, user } = useAuth();
 
-  const [hotel, setHotel] = useState(null);
+  const [place, setPlace] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
-  const [hotelratings, setHotelratings] = useState(0);
+  const [placeratings, setPlaceratings] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [newReview, setNewReview] = useState("");
   const [error, setError] = useState(null);
   const [ratingError, setRatingError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log("here is user",user)
   const calculateAverageRating = (reviews) => {
     if (reviews.length === 0) return 0;
     const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
@@ -29,20 +28,22 @@ const HotelDetails = () => {
     return averageRating;
   };
 
-  const fetchHotelDetails = async () => {
+  const fetchPlaceDetails = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8081/hotel/getHotel/${hotelID}`,
+        `http://localhost:8081/place/getPlace/${placeID}`,
         {}
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      setHotel(data);
-      setReviews(data.hotelReviewList.reverse() || []);
+      setPlace(data);
+      setReviews(data.placeReviewList.reverse() || []);
+      console.log("data iz:",data);
+      console.log("reviews iz",reviews)
       setLoading(false);
-      setHotelratings(calculateAverageRating(data.hotelRatingList));
+      setPlaceratings(calculateAverageRating(data.placeRatingList));
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -50,8 +51,8 @@ const HotelDetails = () => {
   };
 
   useEffect(() => {
-    fetchHotelDetails();
-  }, [hotelID, token]);
+    fetchPlaceDetails();
+  }, [placeID, token]);
 
   const handleAddReview = async () => {
     setError("");
@@ -65,7 +66,7 @@ const HotelDetails = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8081/hotel/addHotelReview/${hotelID}`,
+        `http://localhost:8081/place/addPlaceReview/${placeID}`,
         {
           method: "POST",
           headers: {
@@ -82,7 +83,7 @@ const HotelDetails = () => {
       console.log(addedReview);
       //   setReviews([...reviews, addedReview]);
       setNewReview("");
-      fetchHotelDetails();
+      fetchPlaceDetails();
     } catch (error) {
       setError(error.message);
       console.log(error.message);
@@ -106,7 +107,7 @@ const HotelDetails = () => {
     setRatingError("");
     try {
       const response = await fetch(
-        `http://localhost:8081/hotel/addHotelRating/${hotelID}`,
+        `http://localhost:8081/place/addPlaceRating/${placeID}`,
         {
           method: "POST",
           headers: {
@@ -122,7 +123,7 @@ const HotelDetails = () => {
       console.log("Rating added");
 
       setRating(0); // Reset the rating to 0 after uploading
-      fetchHotelDetails();
+      fetchPlaceDetails();
     } catch (error) {
       setRatingError(error.message);
       setTimeout(() => {
@@ -131,13 +132,13 @@ const HotelDetails = () => {
     }
   };
   const handleNextImage = () => {
-    setCurrentImageIndex((currentImageIndex + 1) % hotel.hotelImageList.length);
+    setCurrentImageIndex((currentImageIndex + 1) % place.placeImageList.length);
   };
 
   const handlePrevImage = () => {
     setCurrentImageIndex(
-      (currentImageIndex - 1 + hotel.hotelImageList.length) %
-        hotel.hotelImageList.length
+      (currentImageIndex - 1 + place.placeImageList.length) %
+        place.placeImageList.length
     );
   };
 
@@ -164,14 +165,14 @@ const HotelDetails = () => {
     <div className={styles.pageContainer}>
       <NavBar />
       <div className={styles.contentContainer}>
-        <h1 className={styles.title}>{hotel.hotelName}</h1>
+        <h1 className={styles.title}>{place.placeName}</h1>
         <div className={styles.sliderContainer}>
           <div className={styles.slider}>
-            {hotel.hotelImageList && hotel.hotelImageList.length > 0 && (
+            {place.placeImageList && place.placeImageList.length > 0 && (
               <>
                 <img
-                  src={hotel.hotelImageList[currentImageIndex].imageUrl}
-                  alt={hotel.name}
+                  src={place.placeImageList[currentImageIndex].imageUrl}
+                  alt={place.name}
                   className={styles.image}
                 />
                 <button
@@ -193,29 +194,29 @@ const HotelDetails = () => {
         <div className={styles.detailsContainer}>
           <ul className={styles.detailsList}>
             <li>
-              <strong>Rating:</strong> {hotel.averageRating}{" "}
+              <strong>Rating:</strong> {place.averageRating}{" "}
               <span className={styles.ratingStars}>
-                {renderStars(hotelratings)}
+                {renderStars(placeratings)}
               </span>
             </li>
             <li>
-              <strong>Name:</strong> {hotel.hotelName}
+              <strong>Name:</strong> {place.placeName}
             </li>
             <li>
               <strong>Description:</strong> A beautiful place to dine with a
               stunning view of Islamabad.
             </li>
             <li>
-              <strong>Address:</strong> {hotel.hotelAddress}
+              <strong>Address:</strong> {place.placeAddress}
             </li>
             <li>
-              <strong>Min Price:</strong> Rs: {hotel.minPrice}
+              <strong>Min Price:</strong> Rs: {place.minPrice}
             </li>
             <li>
-              <strong>Max Price:</strong> Rs: {hotel.maxPrice}
+              <strong>Max Price:</strong> Rs: {place.maxPrice}
             </li>
             <li>
-              <strong>City:</strong> {hotel.hotelCity}
+              <strong>City:</strong> {place.placeCity}
             </li>
           </ul>
         </div>
@@ -308,4 +309,4 @@ const HotelDetails = () => {
   );
 };
 
-export default HotelDetails;
+export default PlaceDetails;

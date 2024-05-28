@@ -13,7 +13,7 @@ function UserReviews() {
   const { isAuthenticated } = useAuth();
   const[reviews,setReviews]=useState([]);
   const navigate = useNavigate();
-  const url="http://localhost:8080/profile/getProfile";
+  const url="http://localhost:8081/profile/getProfile";
   useEffect(() => {
     // console.log("here");
     if (!isAuthenticated) {

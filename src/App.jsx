@@ -24,6 +24,8 @@ import AllHotels from "./Pages/AllHotels";
 import AllPlaces from "./Pages/AllPlaces";
 import AllRestaurants from "./Pages/AllRestaurants";
 import HotelDetails from "./Pages/HotelDetails";
+import PlaceDetails from "./Pages/PlaceDetails";
+import RestaurantDetails from "./Pages/RestaurantDetails";
 
 function App() {
   return (
@@ -69,7 +71,9 @@ function App() {
             <Route path="AllHotels" element={<AllHotels />} />
             <Route path="/HotelDetails/:hotelID" element={<HotelDetails />} />
             <Route path="AllPlaces" element={<AllPlaces />} />
+            <Route path="/PlaceDetails/:placeID" element={<PlaceDetails/>} />
             <Route path="AllRestaurants" element={<AllRestaurants />} />
+            <Route path="/RestaurantDetails/:restaurantID" element={<RestaurantDetails/>}/>
             <Route path="*" element={<PageNotfoumd />}></Route>
           </Routes>
         </BrowserRouter>

@@ -16,7 +16,7 @@ function UserPlace() {
 
   const [places, setPlaces] = useState([]);
   const navigate = useNavigate();
-  // const url="http://localhost:8080/place/getHotel/${hotelid}";
+  // const url="http://localhost:8081/place/getHotel/${hotelid}";
   useEffect(() => {
     console.log("here");
     if (!isAuthenticated) {
