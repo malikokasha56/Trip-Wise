@@ -41,7 +41,7 @@ function UserProfile() {
         </div>
         <div className={styles.row2}>
           <NavLink className={styles.row2Link} to="favourite">
-            Favourites
+            Hotels added by you
           </NavLink>
           <NavLink className={styles.row2Link} to="addedPlaces">
             Places Add

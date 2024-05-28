@@ -1,11 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./EditProfile.module.css";
 import { useEffect, useState } from "react";
 import { useAuth } from "../Contexts/AuthContext";
 
 function EditProfile() {
-  const { updateUser, token, user } = useAuth();
+  const { updateUser, token, user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("male");
@@ -35,7 +36,7 @@ function EditProfile() {
       return;
     }
 
-    const url = "http://localhost:8080/profile/uploadProfileImage";
+    const url = "http://localhost:8081/profile/uploadProfileImage";
 
     // Fetch the image data
     const formData = new FormData();
@@ -63,6 +64,11 @@ function EditProfile() {
   }
 
   async function handleSubmit() {}
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
   return (
     <div className={styles.container}>
       <div className={styles.box}>

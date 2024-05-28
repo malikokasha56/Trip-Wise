@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import Validate from "../Validation/Validate";
 
 function SignUp() {
-  const [firstname, setFirstname] = useState("ahmed");
-  const [lastname, setLastname] = useState("ali");
-  const [email, setEmail] = useState("alimalik200@gmail.com");
-  const [password, setPassword] = useState("123");
-  const [rePassword, setRePassword] = useState("123");
+  const [firstname, setFirstname] = useState("Malik");
+  const [lastname, setLastname] = useState("Okasha");
+  const [email, setEmail] = useState("okasha5566@gmail.com");
+  const [password, setPassword] = useState("Malik10&");
+  const [rePassword, setRePassword] = useState("Malik10&");
   const [gender, setGender] = useState("male");
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
@@ -29,7 +29,7 @@ function SignUp() {
   useEffect(() => {
     if (formSubmitted && Object.keys(errors).length === 0) {
       const fetchData = async () => {
-        const url = "http://localhost:8080/auth/signup";
+        const url = "http://localhost:8081/auth/signup";
         const data = {
           firstname,
           lastname,
@@ -72,8 +72,7 @@ function SignUp() {
     <div className={styles.container}>
       <div className={styles.box}>
         <img className={styles.logo} src="/Logo.png" alt="TripWise Logo" />
-        <h1 className={styles.wlcm}>Join to unlock the best
-of TripWise</h1>
+        <h1 className={styles.wlcm}>Join to unlock the best of TripWise</h1>
         <form className={styles.form} onSubmit={handleSubmit}>
           <label>First Name: </label>
           <input

@@ -2,111 +2,85 @@ import { useEffect, useState } from "react";
 import styles from "./UserFavourite.module.css";
 import { useAuth } from "../Contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useNavigation } from "react-router-dom";
 
 function UserFavourite() {
-  const { updateUser, token, user } = useAuth();
+  const { token } = useAuth();
   const { isAuthenticated } = useAuth();
   const [hotels, setHotels] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const url = "http://localhost:8081/profile/getProfile";
+  const url = "http://localhost:8081/hotel/getAllHotelByProfile";
+
   useEffect(() => {
-    console.log("here");
     if (!isAuthenticated) {
       navigate("/");
+      return;
     }
 
-    console.log("Fetching data with token of hotels:", token);
-    fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
+    const fetchHotels = async () => {
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((data) => {
+
+        const data = await response.json();
         setHotels(data);
-        // console.log(hotels[0].hotelName);
-
         console.log("Fetched data:", data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, [isAuthenticated, navigate]);
+      } catch (error) {
+        setError(error.message);
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  const { hotelList = [] } = hotels;
-  //  const {hotelImageList=[]}=hotelList
-  // console.log("iamges",hotelImageList);
+    fetchHotels();
+  }, [isAuthenticated, navigate, token, url]);
+
   function onHotelClick(id) {
-    const hotelid = id;
-    console.log("here iz", hotelid);
-    navigate("/UserHotel", { state: { hotelid } });
+    navigate("/UserHotel", { state: { hotelid: id } });
+  }
+
+  if (error) {
+    return <div className={styles.error}>Error: {error}</div>;
   }
 
   return (
-    <div className={styles.col2}>
-      {hotelList.map((hotel) => (
-        <div
-          key={hotel.id}
-          className={styles.row__1}
-          onClick={() => onHotelClick(hotel.id)}
-        >
-          {hotel.hotelImageList.length > 0 && (
-            <img src={hotel.hotelImageList[0].imageUrl} alt={hotel.hotelName} />
-          )}
-          <h2>{hotel.hotelName}</h2>
-          <h5>{hotel.hotelDescription}</h5>
+    <div className={styles.container}>
+      {hotels.length === 0 ? (
+        <div className={styles.noHotelsMessage}>
+          Please share your experience by adding hotels.
         </div>
-      ))}
+      ) : (
+        <div className={styles.content_box}>
+          {hotels.map((hotel) => (
+            <div
+              key={hotel.id}
+              className={styles.card}
+              onClick={() => onHotelClick(hotel.id)}
+            >
+              {hotel.hotelImageList.length > 0 && (
+                <img
+                  src={hotel.hotelImageList[0].imageUrl}
+                  alt={hotel.hotelName}
+                  className={styles.hotelImage}
+                />
+              )}
+              <div className={styles.cardText}>
+                <h2>{hotel.hotelName}</h2>
+                <h5>{hotel.hotelDescription}</h5>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
 export default UserFavourite;
-
-// <div className={styles.row__1}>
-//         <img src="/taiwan.jpg" alt="" />
-//         <h2>Bali,Hunza</h2>
-//         <h5>
-//           {hotels[0].hotelName}
-//         </h5>
-//       </div>
-//       <div className={styles.row__1}>
-//         <img src="/taiwan.jpg" alt="" />
-//         <h2>Bali,Hunza</h2>
-//         <h5>
-//           Bali is a Beautiful Tourist Spot and is Visited by many Travlers
-//         </h5>
-//       </div>
-//       <div className={styles.row__1}>
-//         <img src="/taiwan.jpg" alt="" />
-//         <h2>Bali,Hunza</h2>
-//         <h5>
-//           Bali is a Beautiful Tourist Spot and is Visited by many Travlers
-//         </h5>
-//       </div>
-//       <div className={styles.row__1}>
-//         <img src="/taiwan.jpg" alt="" />
-//         <h2>Bali,Hunza</h2>
-//         <h5>
-//           Bali is a Beautiful Tourist Spot and is Visited by many Travlers
-//         </h5>
-//       </div>
-//       <div className={styles.row__1}>
-//         <img src="/taiwan.jpg" alt="" />
-//         <h2>Bali,Hunza</h2>
-//         <h5>
-//           Bali is a Beautiful Tourist Spot and is Visited by many Travlers
-//         </h5>
-//       </div>
-//       <div className={styles.row__1}>
-//         <img src="/taiwan.jpg" alt="" />
-//         <h2>Bali,Hunza</h2>
-//         <h5>
-//           Bali is a Beautiful Tourist Spot and is Visited by many Travlers
-//         </h5>
-//       </div>

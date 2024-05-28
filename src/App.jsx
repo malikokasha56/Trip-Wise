@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SignUp from "./Pages/SignUp";
 
 import Login from "./Pages/Login";
-import HomePage from "./Pages/HomePage";
 import ForgetPassword from "./Pages/ForgetPassword";
 import EditProfile from "./Pages/EditProfile";
 import ChangePassword from "./Pages/ChangePassword";
@@ -21,6 +20,9 @@ import ThingsToDo from "./Pages/ThingsToDo";
 import AddThingsToDo from "./Pages/AddThingsToDo";
 import UserHotel from "./Pages/UserHotel";
 import UserPlace from "./Pages/UserPlace";
+import AllHotels from "./Pages/AllHotels";
+import AllPlaces from "./Pages/AllPlaces";
+import AllRestaurants from "./Pages/AllRestaurants";
 
 function App() {
   return (
@@ -56,14 +58,16 @@ function App() {
 
             <Route path="UserProfile" element={<UserProfile />}>
               <Route index element={<Navigate replace to="favourite" />} />
-              <Route path="EditProfile" element={<EditProfile />} />
               <Route path="favourite" element={<UserFavourite />} />
+              <Route path="EditProfile" element={<EditProfile />} />
               <Route path="addedPlaces" element={<UserAddedPlaces />} />
               <Route path="userReviews" element={<UserReviews />} />
             </Route>
-            <Route path="UserHotel" element={<UserHotel />}></Route>
-            <Route path="UserPlace" element={<UserPlace />}></Route>
-
+            <Route path="UserHotel" element={<UserHotel />} />
+            <Route path="UserPlace" element={<UserPlace />} />
+            <Route path="AllHotels" element={<AllHotels />} />
+            <Route path="AllPlaces" element={<AllPlaces />} />
+            <Route path="AllRestaurants" element={<AllRestaurants />} />
             <Route path="*" element={<PageNotfoumd />}></Route>
           </Routes>
         </BrowserRouter>

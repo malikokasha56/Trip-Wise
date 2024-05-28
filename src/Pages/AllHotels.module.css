@@ -1,4 +1,8 @@
 /* General container styling */
+.container {
+  padding: 0 20px; /* Add padding to the left and right */
+}
+
 .col2 {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Four columns with equal width */
@@ -167,4 +171,13 @@
   gap: 20px; /* Adjust the gap between boxes if needed */
   justify-items: center; /* Center items horizontally */
   padding: 20px;
+}
+
+/* Heading below NavBar */
+.heading {
+  text-align: center;
+  font-weight: bold;
+  color: green;
+  font-size: 35px;
+  margin: 20px 0; /* Add some margin for spacing */
 }

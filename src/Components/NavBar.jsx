@@ -1,8 +1,6 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import { useAuth } from "../Contexts/AuthContext";
-import SignUp from "../Pages/SignUp";
-import { useEffect } from "react";
 
 function NavBar() {
   const { isAuthenticated, user, logout } = useAuth();
@@ -20,17 +18,22 @@ function NavBar() {
         <nav>
           <ul>
             <li>
-              <Link to="/SignUp">Hotels</Link>
+              <Link to="/AllHotels">Hotels</Link>
             </li>
             <li>
-              <Link to="/ThingsToDo">Things To Do</Link>
+              <Link to="/AllRestaurants">Restaurants</Link>
+            </li>
+            <li>
+              <Link to="/AllPlaces">Places</Link>
             </li>
             <li>
               <Link to="/NewPost">Add A Place</Link>
             </li>
-            <li>
-              <Link to="/SignUp">Write A Review</Link>
-            </li>
+            {isAuthenticated && (
+              <li>
+                <Link to="/ThingsToDo">Things To Do</Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

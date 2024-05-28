@@ -4,58 +4,81 @@ import { useAuth } from "../Contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function UserAddedPlaces() {
-  const { isAuthenticated, updateUser, token, user } = useAuth();
-  const [places, setPlaces] = useState([]);
+  const { token } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const [hotels, setHotels] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const url = "http://localhost:8081/profile/getProfile";
+  const url = "http://localhost:8081/hotel/getAllHotelByProfile";
+
   useEffect(() => {
-    console.log("here");
     if (!isAuthenticated) {
       navigate("/");
+      return;
     }
 
-    console.log("Fetching data with token:", token);
-    fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
+    const fetchHotels = async () => {
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((data) => {
-        setPlaces(data);
+
+        const data = await response.json();
+        setHotels(data);
         console.log("Fetched data:", data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, [isAuthenticated, navigate]);
+      } catch (error) {
+        setError(error.message);
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  const { placeList = [] } = places;
+    fetchHotels();
+  }, [isAuthenticated, navigate, token, url]);
 
-  function onPlaceClick(id) {
-    const placeid = id;
-    console.log("here iz", placeid);
-    navigate("/UserPlace", { state: { placeid } });
+  function onHotelClick(id) {
+    navigate("/UserHotel", { state: { hotelid: id } });
   }
+
+  if (error) {
+    return <div className={styles.error}>Error: {error}</div>;
+  }
+
   return (
-    <div className={styles.col2}>
-      {placeList.map((place) => (
-        <div
-          key={place.id}
-          className={styles.row__1}
-          onClick={() => onPlaceClick(place.id)}
-        >
-          {place.placeImageList.length > 0 && (
-            <img src={place.placeImageList[0].imageUrl} alt={place.placeName} />
-          )}
-          <h2>{place.placeName}</h2>
-          <h5>{place.placeDescription}</h5>
+    <div className={styles.container}>
+      {hotels.length === 0 ? (
+        <div className={styles.noHotelsMessage}>
+          Please share your experience by adding hotels.
         </div>
-      ))}
+      ) : (
+        <div className={styles.content_box}>
+          {hotels.map((hotel) => (
+            <div
+              key={hotel.id}
+              className={styles.card}
+              onClick={() => onHotelClick(hotel.id)}
+            >
+              {hotel.hotelImageList.length > 0 && (
+                <img
+                  src={hotel.hotelImageList[0].imageUrl}
+                  alt={hotel.hotelName}
+                  className={styles.hotelImage}
+                />
+              )}
+              <div className={styles.cardText}>
+                <h2>{hotel.hotelName}</h2>
+                <h5>{hotel.hotelDescription}</h5>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
