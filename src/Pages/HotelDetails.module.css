@@ -1,0 +1,184 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.contentContainer {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.title {
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.sliderContainer {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.slider {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 400px; /* Adjust slider height */
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.slideButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%; /* Make buttons circular */
+    font-size: 1.5em;
+}
+
+.leftButton {
+    left: 10px;
+}
+
+.rightButton {
+    right: 10px;
+}
+
+.detailsContainer {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.detailsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.detailsList li {
+    padding: 10px 0;
+    font-size: 1.1em;
+    font-weight: normal;
+}
+
+.ratingStars {
+    color: gold;
+    font-size: 1em;
+}
+
+.addReviewContainer {
+    margin: 40px 0; /* Increase spacing */
+}
+
+.subTitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.addReviewInput {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Increase spacing */
+}
+
+.reviewPlaceholder {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border-bottom: 1px solid #ccc;
+    color: #aaa;
+    margin-left: 10px;
+}
+
+.addReviewButton {
+    display: block;
+    margin: 20px 0; /* Increase spacing */
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+}
+
+.userReviewsContainer {
+    margin: 40px 0; /* Increase spacing */
+}
+
+.userReview {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Increase spacing */
+}
+
+.userImagePlaceholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 10px;
+}
+
+.reviewTitle {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+}
+
+.reviewDescription {
+    margin: 5px 0 0 0;
+    font-size: 1em;
+    color: #555;
+}
+
+.ratingContainer {
+    text-align: center;
+    margin: 40px 0; /* Increase spacing */
+}
+
+.rating {
+    font-size: 2em;
+}
+
+.activeStar {
+    color: gold;
+    cursor: pointer;
+}
+
+.inactiveStar {
+    color: #ccc;
+    cursor: pointer;
+}
+
+.addRatingButton {
+    display: block;
+    margin: 20px auto; /* Increase spacing */
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+}

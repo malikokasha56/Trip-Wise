@@ -23,6 +23,7 @@ import UserPlace from "./Pages/UserPlace";
 import AllHotels from "./Pages/AllHotels";
 import AllPlaces from "./Pages/AllPlaces";
 import AllRestaurants from "./Pages/AllRestaurants";
+import HotelDetails from "./Pages/HotelDetails";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
             <Route path="UserHotel" element={<UserHotel />} />
             <Route path="UserPlace" element={<UserPlace />} />
             <Route path="AllHotels" element={<AllHotels />} />
+            <Route path="HotelDetails" element={<HotelDetails />} />
             <Route path="AllPlaces" element={<AllPlaces />} />
             <Route path="AllRestaurants" element={<AllRestaurants />} />
             <Route path="*" element={<PageNotfoumd />}></Route>
