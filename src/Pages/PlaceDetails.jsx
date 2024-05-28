@@ -40,8 +40,8 @@ const PlaceDetails = () => {
       const data = await response.json();
       setPlace(data);
       setReviews(data.placeReviewList.reverse() || []);
-      console.log("data iz:",data);
-      console.log("reviews iz",reviews)
+      console.log("data iz:", data);
+      console.log("reviews iz", reviews);
       setLoading(false);
       setPlaceratings(calculateAverageRating(data.placeRatingList));
     } catch (error) {
@@ -203,18 +203,12 @@ const PlaceDetails = () => {
               <strong>Name:</strong> {place.placeName}
             </li>
             <li>
-              <strong>Description:</strong> A beautiful place to dine with a
-              stunning view of Islamabad.
+              <strong>Description:</strong> {place.placeDescription}
             </li>
             <li>
               <strong>Address:</strong> {place.placeAddress}
             </li>
-            <li>
-              <strong>Min Price:</strong> Rs: {place.minPrice}
-            </li>
-            <li>
-              <strong>Max Price:</strong> Rs: {place.maxPrice}
-            </li>
+
             <li>
               <strong>City:</strong> {place.placeCity}
             </li>

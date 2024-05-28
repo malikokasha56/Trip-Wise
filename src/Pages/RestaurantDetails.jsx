@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import styles from "./RestaurantDetails.module.css"
+import styles from "./RestaurantDetails.module.css";
 import NavBar from "../Components/NavBar";
 import AbooutsUs from "../Components/AbooutsUs";
 import Footer from "../Components/Footer";
@@ -40,8 +40,8 @@ const RestaurantDetails = () => {
       const data = await response.json();
       setRestaurant(data);
       setReviews(data.restaurantReviewList.reverse() || []);
-      console.log("data iz:",data)
-      console.log("here are reviews",reviews);
+      console.log("data iz:", data);
+      console.log("here are reviews", reviews);
       setLoading(false);
       setRestaurantratings(calculateAverageRating(data.restaurantRatingList));
     } catch (error) {
@@ -132,7 +132,9 @@ const RestaurantDetails = () => {
     }
   };
   const handleNextImage = () => {
-    setCurrentImageIndex((currentImageIndex + 1) % restaurant.restaurantImageList.length);
+    setCurrentImageIndex(
+      (currentImageIndex + 1) % restaurant.restaurantImageList.length
+    );
   };
 
   const handlePrevImage = () => {
@@ -168,27 +170,30 @@ const RestaurantDetails = () => {
         <h1 className={styles.title}>{restaurant.restaurantName}</h1>
         <div className={styles.sliderContainer}>
           <div className={styles.slider}>
-            {restaurant.restaurantImageList && restaurant.restaurantImageList.length > 0 && (
-              <>
-                <img
-                  src={restaurant.restaurantImageList[currentImageIndex].imageUrl}
-                  alt={restaurant.name}
-                  className={styles.image}
-                />
-                <button
-                  className={`${styles.slideButton} ${styles.leftButton}`}
-                  onClick={handlePrevImage}
-                >
-                  {"<"}
-                </button>
-                <button
-                  className={`${styles.slideButton} ${styles.rightButton}`}
-                  onClick={handleNextImage}
-                >
-                  {">"}
-                </button>
-              </>
-            )}
+            {restaurant.restaurantImageList &&
+              restaurant.restaurantImageList.length > 0 && (
+                <>
+                  <img
+                    src={
+                      restaurant.restaurantImageList[currentImageIndex].imageUrl
+                    }
+                    alt={restaurant.name}
+                    className={styles.image}
+                  />
+                  <button
+                    className={`${styles.slideButton} ${styles.leftButton}`}
+                    onClick={handlePrevImage}
+                  >
+                    {"<"}
+                  </button>
+                  <button
+                    className={`${styles.slideButton} ${styles.rightButton}`}
+                    onClick={handleNextImage}
+                  >
+                    {">"}
+                  </button>
+                </>
+              )}
           </div>
         </div>
         <div className={styles.detailsContainer}>
@@ -203,8 +208,7 @@ const RestaurantDetails = () => {
               <strong>Name:</strong> {restaurant.restaurantName}
             </li>
             <li>
-              <strong>Description:</strong> A beautiful place to dine with a
-              stunning view of Islamabad.
+              <strong>Description:</strong> {restaurant.restaurantDescription}
             </li>
             <li>
               <strong>Address:</strong> {restaurant.restaurantAddress}

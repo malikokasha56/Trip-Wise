@@ -10,6 +10,7 @@ function AllHotels() {
   const { isAuthenticated, token } = useAuth();
   const [hotels, setHotels] = useState([]);
   const [error, setError] = useState(null);
+  const [filter, setFilter] = useState("0");
   const navigate = useNavigate();
   const url = "http://localhost:8081/hotel/getAllHotel";
 
@@ -36,67 +37,77 @@ function AllHotels() {
     }
   };
 
+  const fetchHotelsNearByYou = async () => {
+    try {
+      const response = await fetch("https://ipinfo.io/json");
+      const data = await response.json();
+      const cityName = data.city;
+
+      const cityResponse = await fetch(
+        `http://localhost:8081/hotel/getAllHotelByCity/${cityName}`
+      );
+      const cityData = await cityResponse.json();
+      setHotels(cityData.reverse());
+
+      console.log("Your city: " + cityName);
+    } catch (error) {
+      console.error("Error fetching nearby hotels:", error);
+    }
+  };
+
   useEffect(() => {
     document.title = "Hotels";
 
-    fetchHotels();
-  }, [isAuthenticated, navigate, token, url]);
+    if (filter === "0") {
+      fetchHotels();
+    } else {
+      fetchHotelsNearByYou();
+    }
+  }, [isAuthenticated, navigate, token, filter]);
 
   function onHotelClick(id) {
     navigate(`/HotelDetails/${id}`);
   }
 
-  if (error) {
-    return <div className={styles.error}>Error: {error}</div>;
-  }
-
-  function handleChangePageData() {
-    const selectValue = document.getElementById("fruitSelect");
-    if (selectValue.value == "0") {
+  const handleChangePageData = (event) => {
+    const value = event.target.value;
+    setFilter(value);
+    if (value === "0") {
       fetchHotels();
     } else {
       fetchHotelsNearByYou();
     }
-  }
+  };
 
-  function fetchHotelsNearByYou() {
-    // Make a request to ipinfo.io to get geolocation information based on IP
-    fetch("https://ipinfo.io/json")
-      .then((response) => response.json())
-      .then((data) => {
-        // Extract city name from response
-        var cityName = data.city;
-
-        fetch(`http://localhost:8081/hotel/getAllHotelByCity/${cityName}`)
-          .then((response) => response.json())
-          .then((data) => {
-            setHotels(data.reverse());
-          });
-
-        console.log("Your city: " + cityName);
-      })
-      .catch((error) => {
-        console.log("Error:", error);
-      });
+  if (error) {
+    return <div className={styles.error}>Error: {error}</div>;
   }
 
   return (
     <>
       <NavBar />
       <div className={styles.container}>
-        {hotels.length === 0 ? (
+        <h1 className={styles.heading}>Top hotels which you can explore</h1>
+        <div>
+          <select
+            id="fruitSelect"
+            value={filter}
+            onChange={handleChangePageData}
+          >
+            <option value="0">All Hotels</option>
+            <option value="1">Hotels Near By You</option>
+          </select>
+        </div>
+        {hotels.length === 0 && filter === "0" ? (
           <div className={styles.noHotelsMessage}>
             Please share your experience by adding hotels.
           </div>
+        ) : hotels.length === 0 && filter === "1" ? (
+          <div className={styles.noHotelsMessage}>
+            No posts about hotels in your area
+          </div>
         ) : (
           <>
-            <h1 className={styles.heading}>Top hotels which you can explore</h1>
-            <div>
-              <select id="fruitSelect" onChange={handleChangePageData}>
-                <option value="0">All Hotels</option>
-                <option value="1">Hotels Near By You</option>
-              </select>
-            </div>
             <div className={styles.content_box}>
               {hotels.map((hotel) => (
                 <div

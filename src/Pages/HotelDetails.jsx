@@ -21,7 +21,7 @@ const HotelDetails = () => {
   const [ratingError, setRatingError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log("here is user",user)
+  console.log("here is user", user);
   const calculateAverageRating = (reviews) => {
     if (reviews.length === 0) return 0;
     const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
@@ -202,8 +202,8 @@ const HotelDetails = () => {
               <strong>Name:</strong> {hotel.hotelName}
             </li>
             <li>
-              <strong>Description:</strong> A beautiful place to dine with a
-              stunning view of Islamabad.
+              <strong>Description:</strong>
+              {hotel.hotelDescription}
             </li>
             <li>
               <strong>Address:</strong> {hotel.hotelAddress}

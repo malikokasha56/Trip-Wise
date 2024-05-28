@@ -10,9 +10,11 @@ function AllPlaces() {
   const { isAuthenticated, token } = useAuth();
   const [places, setPlaces] = useState([]);
   const [error, setError] = useState(null);
+  const [filter, setFilter] = useState("0");
+
   const navigate = useNavigate();
   const url = "http://localhost:8081/place/getAllPlace";
- 
+
   const fetchPlaces = async () => {
     try {
       const response = await fetch(url, {
@@ -38,10 +40,13 @@ function AllPlaces() {
 
   useEffect(() => {
     document.title = "Places";
-
+    if (filter === "0") {
+      fetchPlaces();
+    } else {
+      fetchPlacesNearByYou();
+    }
     fetchPlaces();
   }, [isAuthenticated, navigate, token, url]);
-
 
   function onPlaceClick(id) {
     navigate(`/PlaceDetails/${id}`);
@@ -51,9 +56,10 @@ function AllPlaces() {
     return <div className={styles.error}>Error: {error}</div>;
   }
 
-  function handleChangePageData() {
-    const selectValue = document.getElementById("fruitSelect");
-    if (selectValue.value == "0") {
+  function handleChangePageData(event) {
+    const value = event.target.value;
+    setFilter(value);
+    if (value === "0") {
       fetchPlaces();
     } else {
       fetchPlacesNearByYou();
@@ -82,48 +88,52 @@ function AllPlaces() {
   }
   return (
     <>
-    <NavBar />
-    <div className={styles.container}>
-      {places.length === 0 ? (
-        <div className={styles.noHotelsMessage}>
-          Please share your experience by adding hotels.
+      <NavBar />
+      <div className={styles.container}>
+        <h1 className={styles.heading}>Top Places which you can explore</h1>
+        <div>
+          <select id="fruitSelect" onChange={handleChangePageData}>
+            <option value="0">All Places</option>
+            <option value="1">Places Near By You</option>
+          </select>
         </div>
-      ) : (
-        <>
-          <h1 className={styles.heading}>Top Places which you can explore</h1>
-          <div>
-            <select id="fruitSelect" onChange={handleChangePageData}>
-              <option value="0">All Places</option>
-              <option value="1">Places Near By You</option>
-            </select>
+        {places.length === 0 && filter === "0" ? (
+          <div className={styles.noHotelsMessage}>
+            Please share your experience by adding places.
           </div>
-          <div className={styles.content_box}>
-            {places.map((place) => (
-              <div
-                key={place.id}
-                className={styles.card}
-                onClick={() => onPlaceClick(place.id)}
-              >
-                {place.placeImageList.length > 0 && (
-                  <img
-                    src={place.placeImageList[0].imageUrl}
-                    alt={place.placeName}
-                    className={styles.placeImage}
-                  />
-                )}
-                <div className={styles.cardText}>
-                  <h2>{place.placeName}</h2>
-                  <h5>{place.placeDescription}</h5>
+        ) : places.length === 0 && filter === "1" ? (
+          <div className={styles.noHotelsMessage}>
+            No posts about places in your area
+          </div>
+        ) : (
+          <>
+            <div className={styles.content_box}>
+              {places.map((place) => (
+                <div
+                  key={place.id}
+                  className={styles.card}
+                  onClick={() => onPlaceClick(place.id)}
+                >
+                  {place.placeImageList.length > 0 && (
+                    <img
+                      src={place.placeImageList[0].imageUrl}
+                      alt={place.placeName}
+                      className={styles.placeImage}
+                    />
+                  )}
+                  <div className={styles.cardText}>
+                    <h2>{place.placeName}</h2>
+                    <h5>{place.placeDescription}</h5>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-    <AbooutsUs />
-    <Footer />
-  </>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+      <AbooutsUs />
+      <Footer />
+    </>
   );
 }
 

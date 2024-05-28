@@ -10,9 +10,10 @@ function AllRestaurants() {
   const { isAuthenticated, token } = useAuth();
   const [restaurants, setRestaurants] = useState([]);
   const [error, setError] = useState(null);
+  const [filter, setFilter] = useState("0");
   const navigate = useNavigate();
   const url = "http://localhost:8081/restaurant/getAllRestaurant";
- 
+
   const fetchRestaurants = async () => {
     try {
       const response = await fetch(url, {
@@ -38,10 +39,13 @@ function AllRestaurants() {
 
   useEffect(() => {
     document.title = "Places";
-
+    if (filter === "0") {
+      fetchRestaurants();
+    } else {
+      fetchRestaurantsNearByYou();
+    }
     fetchRestaurants();
   }, [isAuthenticated, navigate, token, url]);
-
 
   function onRestaurantClick(id) {
     navigate(`/RestaurantDetails/${id}`);
@@ -51,9 +55,10 @@ function AllRestaurants() {
     return <div className={styles.error}>Error: {error}</div>;
   }
 
-  function handleChangePageData() {
-    const selectValue = document.getElementById("fruitSelect");
-    if (selectValue.value == "0") {
+  function handleChangePageData(event) {
+    const value = event.target.value;
+    setFilter(value);
+    if (value === "0") {
       fetchRestaurants();
     } else {
       fetchRestaurantsNearByYou();
@@ -68,7 +73,9 @@ function AllRestaurants() {
         // Extract city name from response
         var cityName = data.city;
 
-        fetch(`http://localhost:8081/restaurant/getAllRestaurantByCity/${cityName}`)
+        fetch(
+          `http://localhost:8081/restaurant/getAllRestaurantByCity/${cityName}`
+        )
           .then((response) => response.json())
           .then((data) => {
             setRestaurants(data.reverse());
@@ -80,49 +87,56 @@ function AllRestaurants() {
         console.log("Error:", error);
       });
   }
-  return ( <>
-    <NavBar />
-    <div className={styles.container}>
-      {restaurants.length === 0 ? (
-        <div className={styles.noHotelsMessage}>
-          Please share your experience by adding hotels.
+  return (
+    <>
+      <NavBar />
+      <div className={styles.container}>
+        <h1 className={styles.heading}>
+          Top Restaurants which you can explore
+        </h1>
+        <div>
+          <select id="fruitSelect" onChange={handleChangePageData}>
+            <option value="0">All Restaurants</option>
+            <option value="1">Restaurants Near By You</option>
+          </select>
         </div>
-      ) : (
-        <>
-          <h1 className={styles.heading}>Top Restaurants which you can explore</h1>
-          <div>
-            <select id="fruitSelect" onChange={handleChangePageData}>
-              <option value="0">All Restaurants</option>
-              <option value="1">Restaurants Near By You</option>
-            </select>
+        {restaurants.length === 0 && filter === "0" ? (
+          <div className={styles.noHotelsMessage}>
+            Please share your experience by adding restaurants.
           </div>
-          <div className={styles.content_box}>
-            {restaurants.map((restaurant) => (
-              <div
-                key={restaurant.id}
-                className={styles.card}
-                onClick={() => onRestaurantClick(restaurant.id)}
-              >
-                {restaurant.restaurantImageList.length > 0 && (
-                  <img
-                    src={restaurant.restaurantImageList[0].imageUrl}
-                    alt={restaurant.restaurantName}
-                    className={styles.hotelImage}
-                  />
-                )}
-                <div className={styles.cardText}>
-                  <h2>{restaurant.restaurantName}</h2>
-                  <h5>{restaurant.restaurantDescription}</h5>
+        ) : restaurants.length === 0 && filter === "1" ? (
+          <div className={styles.noHotelsMessage}>
+            No posts about restaurants in your area
+          </div>
+        ) : (
+          <>
+            <div className={styles.content_box}>
+              {restaurants.map((restaurant) => (
+                <div
+                  key={restaurant.id}
+                  className={styles.card}
+                  onClick={() => onRestaurantClick(restaurant.id)}
+                >
+                  {restaurant.restaurantImageList.length > 0 && (
+                    <img
+                      src={restaurant.restaurantImageList[0].imageUrl}
+                      alt={restaurant.restaurantName}
+                      className={styles.hotelImage}
+                    />
+                  )}
+                  <div className={styles.cardText}>
+                    <h2>{restaurant.restaurantName}</h2>
+                    <h5>{restaurant.restaurantDescription}</h5>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-    <AbooutsUs />
-    <Footer />
-  </>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+      <AbooutsUs />
+      <Footer />
+    </>
   );
 }
 
