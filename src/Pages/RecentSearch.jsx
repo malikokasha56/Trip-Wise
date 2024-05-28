@@ -18,33 +18,7 @@ function RecentSearch() {
 
   const navigate = useNavigate();
 
-  const { isAuthenticated, token, updateUser } = useAuth();
-
-  useEffect(() => {
-    async function fetchUserData() {
-      try {
-        const res = await fetch("http://localhost:8081/profile/getProfile", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-
-        updateUser({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.username,
-          imageURL: data.imgUrl,
-        });
-      } catch (error) {
-        console.log(`Error in getting data from server`);
-      }
-    }
-    document.title = "Home page";
-    fetchUserData();
-  }, [token, updateUser]);
+  const { token } = useAuth();
 
   const handleScroll = (scrollamount) => {
     const newScrollPosition = scrollPosition + scrollamount;
@@ -58,35 +32,8 @@ function RecentSearch() {
   };
 
   useEffect(() => {
-    async function fetchUserData() {
-      try {
-        const res = await fetch("http://localhost:8081/profile/getProfile", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-
-        updateUser({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.username,
-          imageURL: data.imgUrl,
-        });
-      } catch (error) {
-        console.log(`Error in getting data from server`);
-      }
-    }
-
-    if (!isAuthenticated) {
-      navigate("/");
-    } else {
-      fetchUserData();
-    }
-    document.title = "New Post";
-  }, [isAuthenticated, navigate, token, updateUser]);
+    document.title = "Home Page";
+  }, [token]);
 
   return (
     <div className={styles.container}>
