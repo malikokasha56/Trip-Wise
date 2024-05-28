@@ -53,7 +53,7 @@
 
 .form input:focus,
 .form select:focus {
-  border-color: #00B087;;
+  border-color: #00b087;
 }
 
 .box button {
@@ -61,7 +61,7 @@
   padding: 12px;
   font-size: 18px;
   color: #fff;
-  background-color: #00B087;
+  background-color: #00b087;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -75,7 +75,7 @@
 .forget {
   display: inline-block;
   padding: 4px 20px;
-  color: #00B087;
+  color: #00b087;
   text-decoration: none;
   border-radius: 21px;
   height: 34px;
@@ -104,7 +104,7 @@
   display: inline-block;
   margin-left: 8px;
   padding: 8px 16px;
-  background-color: #00B087;
+  background-color: #00b087;
   color: #fff;
   text-decoration: none;
   border-radius: 8px;
@@ -112,7 +112,7 @@
 }
 
 .link:hover {
-  background-color: #00B087;
+  background-color: #00b087;
 }
 
 .errorText {

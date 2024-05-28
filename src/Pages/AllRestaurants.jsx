@@ -14,9 +14,6 @@ function AllRestaurants() {
   const url = "http://localhost:8081/restaurant/getAllRestaurant";
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/");
-    }
     document.title = "Restaurants";
 
     const fetchRestaurants = async () => {

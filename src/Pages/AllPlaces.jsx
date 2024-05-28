@@ -14,9 +14,6 @@ function AllPlaces() {
   const url = "http://localhost:8081/place/getAllPlace";
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/");
-    }
     document.title = "Places";
 
     const fetchPlaces = async () => {

@@ -67,7 +67,7 @@ function App() {
             <Route path="UserHotel" element={<UserHotel />} />
             <Route path="UserPlace" element={<UserPlace />} />
             <Route path="AllHotels" element={<AllHotels />} />
-            <Route path="HotelDetails" element={<HotelDetails />} />
+            <Route path="/HotelDetails/:hotelID" element={<HotelDetails />} />
             <Route path="AllPlaces" element={<AllPlaces />} />
             <Route path="AllRestaurants" element={<AllRestaurants />} />
             <Route path="*" element={<PageNotfoumd />}></Route>
