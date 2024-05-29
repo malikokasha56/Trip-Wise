@@ -7,22 +7,19 @@ function AbooutsUs() {
       <div className={styles.col1}>
         <img src="/Logo.png" alt="Logo" />
         <p>
-          Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          incididunt ut labore et dolore
+          Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore incididunt ut labore et dolore
         </p>
       </div>
       <div className={styles.col2}>
-        <h1>Contact Information</h1>
+        <h1 className={styles.bold}>Contact Information</h1>
         <p>📍 Lahore</p>
         <p>📱 +92-315-6678234</p>
         <p>📧 info@tripwise.com</p>
       </div>
       <div className={styles.col3}>
-        <h1>Quick Links</h1>
+        <h1 className={styles.bold}>Quick Links</h1>
         <ul>
-          <li>
-            <Link>📝 Write A Review</Link>
-          </li>
           <li>
             <Link to="/NewPost">➕ Add A Place</Link>
           </li>
@@ -35,7 +32,7 @@ function AbooutsUs() {
         </ul>
       </div>
       <div className={styles.col4}>
-        <h1>Links</h1>
+        <h1 className={styles.bold}>Links</h1>
         <ul>
           <li>
             <Link>Terms of Use</Link>
