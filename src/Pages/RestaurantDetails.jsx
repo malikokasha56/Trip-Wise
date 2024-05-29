@@ -19,6 +19,8 @@ const RestaurantDetails = () => {
   const [newReview, setNewReview] = useState("");
   const [error, setError] = useState(null);
   const [ratingError, setRatingError] = useState(null);
+  const [ratingSuccess, setRatingSuccess] = useState("");
+  const [reviewSuccess, setReviewSuccess] = useState("");
   const [loading, setLoading] = useState(true);
 
   const calculateAverageRating = (reviews) => {
@@ -79,10 +81,12 @@ const RestaurantDetails = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const addedReview = response;
-      console.log(addedReview);
+      setReviewSuccess("Thanks for adding review");
       //   setReviews([...reviews, addedReview]);
       setNewReview("");
+      setTimeout(() => {
+        setReviewSuccess("");
+      }, 3000);
       fetchRestaurantDetails();
     } catch (error) {
       setError(error.message);
@@ -120,10 +124,14 @@ const RestaurantDetails = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      console.log("Rating added");
+      setRatingSuccess("Thanks for your rating");
+
+      setTimeout(() => {
+        setRatingSuccess("");
+        fetchRestaurantDetails();
+      }, 3000);
 
       setRating(0); // Reset the rating to 0 after uploading
-      fetchRestaurantDetails();
     } catch (error) {
       setRatingError(error.message);
       setTimeout(() => {
@@ -249,6 +257,9 @@ const RestaurantDetails = () => {
               </button>
             </div>
             {error && <div className={styles.errorText}>*{error}</div>}
+            {reviewSuccess && (
+              <div className={styles.success}>{reviewSuccess}</div>
+            )}
           </>
         )}
 
@@ -303,6 +314,9 @@ const RestaurantDetails = () => {
             </button>
             {ratingError && (
               <div className={styles.errorText}>*{ratingError}</div>
+            )}
+            {ratingSuccess && (
+              <div className={styles.success}>{ratingSuccess}</div>
             )}
           </div>
         )}

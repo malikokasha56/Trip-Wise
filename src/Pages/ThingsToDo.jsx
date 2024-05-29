@@ -22,7 +22,7 @@ const ThingsToDo = () => {
   }, [isAuthenticated, navigate]);
 
   const getAllThingsToDo = async () => {
-    const url = "http://localhost:8081/things/getAll";
+    const url = "http://localhost:8081/things/getThingsByProfile";
 
     try {
       const response = await fetch(url, {

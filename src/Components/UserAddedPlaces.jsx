@@ -9,7 +9,7 @@ function UserAddedPlaces() {
   const [hotels, setHotels] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const url = "http://localhost:8081/hotel/getAllHotelByProfile";
+  const url = "http://localhost:8081/place/getAllPlaceByProfile";
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -43,7 +43,7 @@ function UserAddedPlaces() {
   }, [isAuthenticated, navigate, token, url]);
 
   function onHotelClick(id) {
-    navigate("/UserHotel", { state: { hotelid: id } });
+    navigate(`/PlaceDetails/${id}`);
   }
 
   if (error) {
@@ -54,7 +54,7 @@ function UserAddedPlaces() {
     <div className={styles.container}>
       {hotels.length === 0 ? (
         <div className={styles.noHotelsMessage}>
-          Please share your experience by adding hotels.
+          Please share your experience by adding places.
         </div>
       ) : (
         <div className={styles.content_box}>
@@ -64,16 +64,16 @@ function UserAddedPlaces() {
               className={styles.card}
               onClick={() => onHotelClick(hotel.id)}
             >
-              {hotel.hotelImageList.length > 0 && (
+              {hotel.placeImageList.length > 0 && (
                 <img
-                  src={hotel.hotelImageList[0].imageUrl}
-                  alt={hotel.hotelName}
+                  src={hotel.placeImageList[0].imageUrl}
+                  alt={hotel.placeName}
                   className={styles.hotelImage}
                 />
               )}
               <div className={styles.cardText}>
-                <h2>{hotel.hotelName}</h2>
-                <h5>{hotel.hotelDescription}</h5>
+                <h2>{hotel.placeName}</h2>
+                <h5>{hotel.placeDescription}</h5>
               </div>
             </div>
           ))}

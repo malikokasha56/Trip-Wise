@@ -8,7 +8,7 @@ import ChangePassword from "./Pages/ChangePassword";
 import UserProfile from "./Pages/UserProfile";
 import UserFavourite from "./Components/UserFavourite";
 import UserAddedPlaces from "./Components/UserAddedPlaces";
-import UserReviews from "./Components/UserReviews";
+import UserReviews from "./Components/UserRestaurants";
 import { AuthProvider } from "./Contexts/AuthContext";
 import ProtectedRoute from "./Pages/ProtectedRoute";
 import RecentSearch from "./Pages/RecentSearch";
@@ -26,6 +26,7 @@ import AllRestaurants from "./Pages/AllRestaurants";
 import HotelDetails from "./Pages/HotelDetails";
 import PlaceDetails from "./Pages/PlaceDetails";
 import RestaurantDetails from "./Pages/RestaurantDetails";
+import UserRestaurants from "./Components/UserRestaurants";
 
 function App() {
   return (
@@ -64,16 +65,19 @@ function App() {
               <Route path="favourite" element={<UserFavourite />} />
               <Route path="EditProfile" element={<EditProfile />} />
               <Route path="addedPlaces" element={<UserAddedPlaces />} />
-              <Route path="userReviews" element={<UserReviews />} />
+              <Route path="userReviews" element={<UserRestaurants />} />
             </Route>
             <Route path="UserHotel" element={<UserHotel />} />
             <Route path="UserPlace" element={<UserPlace />} />
             <Route path="AllHotels" element={<AllHotels />} />
             <Route path="/HotelDetails/:hotelID" element={<HotelDetails />} />
             <Route path="AllPlaces" element={<AllPlaces />} />
-            <Route path="/PlaceDetails/:placeID" element={<PlaceDetails/>} />
+            <Route path="/PlaceDetails/:placeID" element={<PlaceDetails />} />
             <Route path="AllRestaurants" element={<AllRestaurants />} />
-            <Route path="/RestaurantDetails/:restaurantID" element={<RestaurantDetails/>}/>
+            <Route
+              path="/RestaurantDetails/:restaurantID"
+              element={<RestaurantDetails />}
+            />
             <Route path="*" element={<PageNotfoumd />}></Route>
           </Routes>
         </BrowserRouter>

@@ -5,7 +5,7 @@ import AbooutsUs from "../Components/AbooutsUs";
 import Footer from "../Components/Footer";
 import { useRef, useState, useEffect } from "react";
 import { useAuth } from "../Contexts/AuthContext";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const ITEM_WIDTH = 300;
 const ITEM_WIDTH2 = 300;
@@ -67,18 +67,24 @@ function RecentSearch() {
     <div className={styles.container}>
       <NavBar />
       <div className={styles.buttonRow1}>
-        <button className={styles.btn_1}>
-          <img src="/hotel.png" alt="Hotels" />
-          <h4>Hotels</h4>
-        </button>
-        <button className={styles.btn_1}>
-          <img src="/things-to-do.png" alt="Things To Do" />
-          <h4>Things To Do</h4>
-        </button>
-        <button className={styles.btn_1}>
-          <img src="/restaurant.png" alt="Restaurants" />
-          <h4>Restaurants</h4>
-        </button>
+        <Link to="/AllHotels">
+          <button className={styles.btn_1}>
+            <img src="/hotel.png" alt="Hotels" />
+            <h4>Hotels</h4>
+          </button>
+        </Link>
+        <Link to="/ThingsToDo">
+          <button className={styles.btn_1}>
+            <img src="/things-to-do.png" alt="Things To Do" />
+            <h4>Things To Do</h4>
+          </button>
+        </Link>
+        <Link to="/AllRestaurants">
+          <button className={styles.btn_1}>
+            <img src="/restaurant.png" alt="Restaurants" />
+            <h4>Restaurants</h4>
+          </button>
+        </Link>
       </div>
 
       <div className={styles.row_3}>

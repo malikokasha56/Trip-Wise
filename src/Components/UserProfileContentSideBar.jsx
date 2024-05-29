@@ -12,7 +12,9 @@ function UserProfileContentSideBar() {
       <div className={styles.row_1}>
         <p>Share Your story</p>
         <p className={styles.description}>
-          <Link className={styles.customLink}>📝 Write Review</Link>
+          <Link className={styles.customLink} to="/ThingsToDo">
+            📝 Things to do
+          </Link>
         </p>
         <p className={styles.description}>
           <Link className={styles.customLink} to="/NewPost">

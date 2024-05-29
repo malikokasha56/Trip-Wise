@@ -38,7 +38,7 @@ function AllRestaurants() {
   };
 
   useEffect(() => {
-    document.title = "Places";
+    document.title = "Restaurants";
     if (filter === "0") {
       fetchRestaurants();
     } else {

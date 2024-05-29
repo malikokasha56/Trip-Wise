@@ -15,10 +15,10 @@ function UserProfile() {
   const navigate = useNavigate();
   const url = "http://localhost:8081/hotel/getAllHotel";
   useEffect(() => {
-    console.log("here");
     if (!isAuthenticated) {
       navigate("/");
     }
+    document.title = "Your profile";
   }, [isAuthenticated, navigate, token]);
 
   return (
@@ -41,13 +41,13 @@ function UserProfile() {
         </div>
         <div className={styles.row2}>
           <NavLink className={styles.row2Link} to="favourite">
-            Hotels added by you
+            Hotels Added
           </NavLink>
           <NavLink className={styles.row2Link} to="addedPlaces">
-            Places Add
+            Places Added
           </NavLink>
           <NavLink className={styles.row2Link} to="userReviews">
-            Reviews
+            Restaurants Added
           </NavLink>
         </div>
       </div>

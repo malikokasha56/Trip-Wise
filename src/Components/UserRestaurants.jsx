@@ -3,13 +3,13 @@ import styles from "./UserFavourite.module.css";
 import { useAuth } from "../Contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-function UserFavourite() {
+function UserRestaurants() {
   const { token } = useAuth();
   const { isAuthenticated } = useAuth();
   const [hotels, setHotels] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const url = "http://localhost:8081/hotel/getAllHotelByProfile";
+  const url = "http://localhost:8081/restaurant/getAllRestaurantByProfile";
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -43,7 +43,7 @@ function UserFavourite() {
   }, [isAuthenticated, navigate, token, url]);
 
   function onHotelClick(id) {
-    navigate(`/HotelDetails/${id}`);
+    navigate(`/RestaurantDetails/${id}`);
   }
 
   if (error) {
@@ -54,7 +54,7 @@ function UserFavourite() {
     <div className={styles.container}>
       {hotels.length === 0 ? (
         <div className={styles.noHotelsMessage}>
-          Please share your experience by adding hotels.
+          Please share your experience by adding places.
         </div>
       ) : (
         <div className={styles.content_box}>
@@ -64,16 +64,16 @@ function UserFavourite() {
               className={styles.card}
               onClick={() => onHotelClick(hotel.id)}
             >
-              {hotel.hotelImageList.length > 0 && (
+              {hotel.restaurantImageList.length > 0 && (
                 <img
-                  src={hotel.hotelImageList[0].imageUrl}
-                  alt={hotel.hotelName}
+                  src={hotel.restaurantImageList[0].imageUrl}
+                  alt={hotel.restaurantName}
                   className={styles.hotelImage}
                 />
               )}
               <div className={styles.cardText}>
-                <h2>{hotel.hotelName}</h2>
-                <h5>{hotel.hotelDescription}</h5>
+                <h2>{hotel.restaurantName}</h2>
+                <h5>{hotel.restaurantDescription}</h5>
               </div>
             </div>
           ))}
@@ -83,4 +83,4 @@ function UserFavourite() {
   );
 }
 
-export default UserFavourite;
+export default UserRestaurants;

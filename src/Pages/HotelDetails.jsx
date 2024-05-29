@@ -19,6 +19,8 @@ const HotelDetails = () => {
   const [newReview, setNewReview] = useState("");
   const [error, setError] = useState(null);
   const [ratingError, setRatingError] = useState(null);
+  const [ratingSuccess, setRatingSuccess] = useState("");
+  const [reviewSuccess, setReviewSuccess] = useState("");
   const [loading, setLoading] = useState(true);
 
   console.log("here is user", user);
@@ -78,10 +80,12 @@ const HotelDetails = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const addedReview = response;
-      console.log(addedReview);
+      setReviewSuccess("Thanks for adding review");
       //   setReviews([...reviews, addedReview]);
       setNewReview("");
+      setTimeout(() => {
+        setReviewSuccess("");
+      }, 3000);
       fetchHotelDetails();
     } catch (error) {
       setError(error.message);
@@ -119,10 +123,14 @@ const HotelDetails = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      console.log("Rating added");
+      setRatingSuccess("Thanks for your rating");
+
+      setTimeout(() => {
+        setRatingSuccess("");
+        fetchHotelDetails();
+      }, 3000);
 
       setRating(0); // Reset the rating to 0 after uploading
-      fetchHotelDetails();
     } catch (error) {
       setRatingError(error.message);
       setTimeout(() => {
@@ -244,6 +252,9 @@ const HotelDetails = () => {
               </button>
             </div>
             {error && <div className={styles.errorText}>*{error}</div>}
+            {reviewSuccess && (
+              <div className={styles.success}>{reviewSuccess}</div>
+            )}
           </>
         )}
 
@@ -298,6 +309,9 @@ const HotelDetails = () => {
             </button>
             {ratingError && (
               <div className={styles.errorText}>*{ratingError}</div>
+            )}
+            {ratingSuccess && (
+              <div className={styles.success}>{ratingSuccess}</div>
             )}
           </div>
         )}
